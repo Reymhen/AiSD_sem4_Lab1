@@ -117,7 +117,6 @@ namespace UnitTestMap
 			catch (const out_of_range error) {
 				Assert::AreEqual("Map is empty\n", error.what());
 			}	
-
 		}
 
 		TEST_METHOD(Testget_valuesExeption)

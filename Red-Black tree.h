@@ -217,18 +217,24 @@ private:
 
 	};
 	//helper function that implements pre-order traversal tree
-	List<key_typename> getHelp(List<key_typename> list, Node* node, bool flag) {
+	List<key_typename> getHelpKey(List<key_typename> list, Node* node) {
 		if (node != nil) {
-			if (flag == false) {
-				list.push_back(node->value);
-			}
-			else {
-				list.push_back(node->key);
-			}
+			list.push_back(node->key);
 			if (node->left != NULL && node->left != nil)
-				list = getHelp(list, node->left, flag);
+				list = getHelpKey(list, node->left);
 			if (node->right != NULL && node->right != nil)
-				list = getHelp(list, node->right, flag);
+				list = getHelpKey(list, node->right);
+			return list;
+		}
+	};
+
+	List<value_typename> getHelpValue(List<value_typename> list, Node* node) {
+		if (node != nil) {
+			list.push_back(node->value);
+			if (node->left != NULL && node->left != nil)
+				list = getHelpValue(list, node->left);
+			if (node->right != NULL && node->right != nil)
+				list = getHelpValue(list, node->right);
 			return list;
 		}
 	};
@@ -371,27 +377,27 @@ public:
 		root = nil;
 	};
 	//returns a list of keys
-	void get_keys() 
+	List <key_typename> get_keys()
 	{
 		List <key_typename> listKey;
 		if (root == NULL || root == nil) {
 			throw out_of_range("Map is empty\n");
 		}
 		else {
-			listKey = getHelp(listKey, root, 1);
-			listKey.printList();
+			listKey = getHelpKey(listKey, root);
+			return listKey;
 		}
 	}
 	//returns a list of values
-	void get_values() 
+	List <value_typename> get_values()
 	{
 		List <value_typename> listValue;
 		if (root == NULL || root == nil) {
 			throw out_of_range("Map is empty\n");
 		}
 		else {
-			listValue = getHelp(listValue, root, 0);
-			listValue.printList();
+			listValue = getHelpValue(listValue, root);
+			return listValue;
 		}
 	}
 	//prints map
